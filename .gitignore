@@ -1,5 +1,7 @@
 .vscode
 
+functions/sample/nodejs/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
