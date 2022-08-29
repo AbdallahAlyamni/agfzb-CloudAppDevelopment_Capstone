@@ -42,7 +42,7 @@ def post_request(url, json_payload, **kwargs):
     except:
         # If any error occurs
         print("Network exception occurred")
-        
+
     status_code = response.status_code
     print("With status {} ".format(status_code))
     json_data = json.loads(response.text)
@@ -91,10 +91,14 @@ def get_dealers_by_state(url, state):
 
 
 # Create a get_dealer_reviews_from_cf method to get reviews by dealer id from a cloud function
-# def get_dealer_by_id_from_cf(url, dealerId):
-# - Call get_request() with specified arguments
-# - Parse JSON results into a DealerView object list
-
+def get_dealer_by_id_from_cf(url, dealerId):
+    dealers = get_dealers_from_cf(url)
+    for dealer in dealers:
+        if dealer.id == dealerId:
+            return dealer.full_name
+    return "dealership"
+    
+    
 def get_dealer_reviews_from_cf(url, dealerId):
     results = []
     # Call get_request with a URL parameter
@@ -123,7 +127,7 @@ def analyze_review_sentiments(dealerreview):
     json_result = get_request(url, api_key=apiKey, text=dealerreview, version="2022-04-07", features="sentiment", return_analyzed_text=False)
     if "error" in json_result:
         print(json_result)
-        return "no sentiment"
+        return "neutral"
     return json_result["sentiment"]["document"]["label"]
 
 
