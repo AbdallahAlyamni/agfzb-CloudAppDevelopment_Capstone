@@ -16,11 +16,17 @@ class CarModel(models.Model):
     Sedan = "Sedan"
     SUV = "SUV"
     WAGON = "WAGON"
+    MPV = "MPV"
+    PICKUP = "Pick-Up"
+    CONVERTIBLE = "convertible"
 
     TYPE_CHOICES = (
         (Sedan, "Sedan"),
         (SUV, "SUV"),
-        (WAGON, "WAGON")
+        (WAGON, "WAGON"),
+        (MPV ,"MPV"),
+        (PICKUP , "Pick-Up"),
+        (CONVERTIBLE , "convertible")
     )
     car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
     name = models.CharField(max_length=90)

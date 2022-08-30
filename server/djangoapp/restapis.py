@@ -104,12 +104,16 @@ def get_dealer_reviews_from_cf(url, dealerId):
     # Call get_request with a URL parameter
     json_result = get_request(url,dealerId=dealerId)
     print(json_result)
-    if json_result:
+    if "reviews" in json_result:
         # Get the row list in JSON as dealers
         reviews = json_result["reviews"]
         # For each dealer object
         for review in reviews:
             # Create a CarDealer object with values in `doc` object
+            if not("car_model" in review):
+                review["car_make"] = ""
+                review["car_model"] = ""
+                review["car_year"] = ""
             review_obj = DealerReview(dealership=review["dealership"], name=review["name"], purchase=review["purchase"],
                                    review=review["review"], purchase_date=review["purchase_date"], car_make=review["car_make"],
                                    car_model=review["car_model"],
